@@ -202,15 +202,18 @@ def test_step2_click_auth_sees_trusted_profile():
                 debug("otwarto nową stronę po kliknięciu")
             active_page.wait_for_load_state("domcontentloaded")
 
-            trusted_pattern = re.compile(r"Zaloguj\s+profilem\s+zaufanym", re.I)
+            trusted_pattern = re.compile(
+                r"(Zaloguj\s+przez\s+login\.gov\.pl|Zaloguj\s+profilem\s+zaufanym)",
+                re.I,
+            )
             trusted = find_visible_by_pattern(active_page, trusted_pattern)
             if not trusted:
                 dump_debug_state(active_page, "step2_no_trusted_button")
-                raise AssertionError("Nie znaleziono przycisku 'Zaloguj profilem zaufanym'")
-            log("OK: widoczny przycisk 'Zaloguj profilem zaufanym'")
+                raise AssertionError("Nie znaleziono przycisku 'Zaloguj przez login.gov.pl'")
+            log("OK: widoczny przycisk 'Zaloguj przez login.gov.pl'")
 
             trusted.click()
-            debug("kliknięto 'Zaloguj profilem zaufanym'")
+            debug("kliknięto 'Zaloguj przez login.gov.pl'")
             active_page = maybe_switch_to_new_page(context, active_page) or active_page
             active_page.wait_for_load_state("domcontentloaded")
 

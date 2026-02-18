@@ -4,7 +4,7 @@ Skrypt automatyzuje podstawowy test logowania do KSeF:
 
 1. Wejście na `https://ap.ksef.mf.gov.pl/web/`
 2. Kliknięcie „Uwierzytelnij się w Krajowym Systemie”
-3. Kliknięcie „Zaloguj profilem zaufanym”
+3. Kliknięcie „Zaloguj przez login.gov.pl”
 4. Wpisanie losowego poprawnego NIP
 5. Jeśli nastąpi przekierowanie na `podpis.gov.pl` → test OK
 6. W przeciwnym razie test zgłasza błąd z treścią z konsoli / odpowiedzi 400
@@ -42,6 +42,23 @@ Jeśli nie masz uprawnień do instalacji zależności systemowych:
 python -m playwright install chromium
 ```
 
+## Raportowanie do ksef-status (banner na stronie)
+
+Skrypt może wysyłać wynik do API serwisu `ksef-status`, aby pojawił się banner ostrzegawczy.
+
+Wymagane zmienne:
+
+- `PZ_STATUS_URL` (np. `https://ksef-status.pl/api/v1/pz-login`)
+- `PZ_STATUS_TOKEN` (taki sam jak `PZ_LOGIN_WEBHOOK_TOKEN` po stronie serwera)
+
+Uruchomienie:
+
+```bash
+PZ_STATUS_URL="https://ksef-status.pl/api/v1/pz-login" \
+PZ_STATUS_TOKEN="...sekret..." \
+./report.sh
+```
+
 ## Tryb debug
 
 ```bash
@@ -57,6 +74,7 @@ W trybie debug zapisywane są:
 - `tests/test_ksef_login.py` — główny test
 - `requirements.txt` — zależności
 - `run.sh` — uruchomienie jedną komendą
+- `report.sh` — uruchomienie + wysłanie wyniku do `ksef-status`
 
 ## Uwagi
 
