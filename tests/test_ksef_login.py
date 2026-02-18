@@ -7,7 +7,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 KSEF_URL = "https://ap.ksef.mf.gov.pl/web/"
-REDIRECT_RE = re.compile(r"podpis\.gov\.pl", re.I)
+REDIRECT_RE = re.compile(r"(podpis\.gov\.pl|login\.gov\.pl)", re.I)
 WAIT_TIMEOUT_SEC = 20
 DEBUG = os.getenv("KSEF_DEBUG") == "1"
 DEBUG_DIR = Path(os.getenv("KSEF_DEBUG_DIR", "debug"))
